@@ -1,4 +1,4 @@
-FROM php:8.3-cli
+FROM php:8.1-cli
 
 ARG LIBVIPS_VERSION=8.18.1
 

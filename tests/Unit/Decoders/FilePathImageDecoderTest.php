@@ -30,7 +30,7 @@ final class FilePathImageDecoderTest extends BaseTestCase
     }
 
     #[DataProvider('filePathsProvider')]
-    public function testDecode(string $path, true|string $result): void
+    public function testDecode(string $path, bool|string $result): void
     {
         if (is_string($result)) {
             $this->expectException($result);
