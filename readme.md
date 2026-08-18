@@ -1,23 +1,25 @@
 # libvips driver for Intervention Image
 
-[![Latest Version](https://img.shields.io/packagist/v/intervention/image-driver-vips.svg)](https://packagist.org/packages/intervention/image-driver-vips)
-[![Build Status](https://github.com/Intervention/image-driver-vips/actions/workflows/run-tests.yml/badge.svg)](https://github.com/Intervention/image-driver-vips/actions)
-[![Monthly Downloads](https://img.shields.io/packagist/dm/intervention/image-driver-vips.svg)](https://packagist.org/packages/intervention/image-driver-vips/stats)
+[![Latest Version](https://img.shields.io/packagist/v/openregion/image-driver-vips.svg)](https://packagist.org/packages/openregion/image-driver-vips)
+[![Build Status](https://github.com/openregion/image-driver-vips/actions/workflows/run-tests.yml/badge.svg)](https://github.com/openregion/image-driver-vips/actions)
+[![Monthly Downloads](https://img.shields.io/packagist/dm/openregion/image-driver-vips.svg)](https://packagist.org/packages/openregion/image-driver-vips/stats)
 [![Support me on Ko-fi](https://raw.githubusercontent.com/Intervention/image-driver-vips/develop/.github/images/support.svg)](https://ko-fi.com/interventionphp)
 
-[Intervention Image's](https://github.com/Intervention/image) official driver to use the library with
+[Intervention Image's](https://github.com/openregion/image) driver to use the library with
 [libvips](https://github.com/libvips/libvips). libvips is a fast, low-memory
 image processing library that outperforms the standard PHP image extensions GD
 and Imagick. This package makes it easy to utilize the power of libvips in your
 project while taking advantage of Intervention Image's user-friendly and
 easy-to-use API.
 
+This repository contains the `openregion/image-driver-vips` fork maintained for PHP 8.1+ compatibility.
+
 ## Installation
 
 Install this library using [Composer](https://getcomposer.org). Simply request the package with the following command:
     
 ```bash
-composer require intervention/image-driver-vips
+composer require openregion/image-driver-vips
 ```
 
 ## Getting Started
@@ -55,7 +57,7 @@ $encoded->save('images/example.jpg');
 
 ## Requirements
 
-- PHP >= 8.3
+- PHP >= 8.1
 - Foreign Function Interface (FFI) Extension
 
 ## Caveats
@@ -75,6 +77,8 @@ $encoded->save('images/example.jpg');
 ## Authors
 
 This library was developed by [Oliver Vogel](https://intervention.io) and Thomas Picquet.
+
+This fork is co-maintained by [CIT Open Region](https://www.openregion.info/).
 
 ## License
 
