@@ -9,7 +9,6 @@ use Intervention\Image\Drivers\Vips\Source\PathSource;
 use Intervention\Image\Drivers\Vips\Tests\BaseTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
-/** @package Intervention\Image\Drivers\Vips\Tests\Unit */
 #[CoversClass(PathSource::class)]
 final class PathSourceTest extends BaseTestCase
 {

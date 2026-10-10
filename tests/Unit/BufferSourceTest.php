@@ -9,7 +9,6 @@ use Intervention\Image\Drivers\Vips\Source\BufferSource;
 use Intervention\Image\Drivers\Vips\Tests\BaseTestCase;
 use PHPUnit\Framework\Attributes\CoversClass;
 
-/** @package Intervention\Image\Drivers\Vips\Tests\Unit */
 #[CoversClass(BufferSource::class)]
 final class BufferSourceTest extends BaseTestCase
 {

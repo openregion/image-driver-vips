@@ -13,6 +13,7 @@ use Intervention\Image\Exceptions\FileNotFoundException;
 use Intervention\Image\Exceptions\FileNotReadableException;
 use Intervention\Image\Exceptions\StreamException;
 use Intervention\Image\Exceptions\InvalidArgumentException;
+use Intervention\Image\Exceptions\StateException;
 use Intervention\Image\Geometry\Rectangle;
 use Intervention\Image\Interfaces\ColorInterface;
 use Intervention\Image\Interfaces\FontInterface;
@@ -34,6 +35,7 @@ class FontProcessor extends AbstractFontProcessor
      * @throws FileNotFoundException
      * @throws FileNotReadableException
      * @throws StreamException
+     * @throws StateException
      */
     public function boxSize(string $text, FontInterface $font): SizeInterface
     {
@@ -59,17 +61,22 @@ class FontProcessor extends AbstractFontProcessor
      * @throws FileNotFoundException
      * @throws FileNotReadableException
      * @throws StreamException
+     * @throws StateException
      */
     public function textToVipsImage(
         string $text,
         FontInterface $font,
         ColorInterface $color = new Color(0, 0, 0),
     ): VipsImage {
+        if (!$font->hasFile()) {
+            throw new StateException('No font file specified');
+        }
+
         return VipsImage::text(
             '<span ' . $this->pangoAttributes($font, $color) . '>' . htmlspecialchars($text) . '</span>',
             [
                 'fontfile' => $font->filepath(),
-                'font' => TrueTypeFont::fromPath($font->filepath())->familyName() . ' ' . $font->size(),
+                'font' => $this->fontDescription($font),
                 'dpi' => 72,
                 'rgba' => true,
                 'width' => $font->wrapWidth(),
@@ -85,6 +92,35 @@ class FontProcessor extends AbstractFontProcessor
     }
 
     /**
+     * Create vips font description.
+     *
+     * @throws InvalidArgumentException
+     * @throws StreamException
+     * @throws DriverException
+     * @throws FileNotReadableException
+     * @throws DirectoryNotFoundException
+     * @throws FileNotFoundException
+     */
+    private function fontDescription(FontInterface $font): string
+    {
+        $ttf = TrueTypeFont::fromPath($font->filepath());
+
+        try {
+            $familyName = $ttf->typographicFamilyName();
+        } catch (DriverException) {
+            $familyName = $ttf->familyName();
+        }
+
+        try {
+            $subfamilyName = $ttf->typographicSubfamilyName();
+        } catch (DriverException) {
+            $subfamilyName = $ttf->subfamilyName();
+        }
+
+        return $familyName . ' ' . $subfamilyName . ' ' . $font->size();
+    }
+
+    /**
      * Return a pango markup attribute string based on the given font and color values
      */
     private function pangoAttributes(FontInterface $font, ColorInterface $color): string
@@ -95,7 +131,7 @@ class FontProcessor extends AbstractFontProcessor
         ];
 
         // format pango attributes
-        return implode(' ', array_map(function ($value, $key): string {
+        return implode(' ', array_map(function (mixed $value, mixed $key): string {
             return $key . '="' . $value . '"';
         }, $pangoAttributes, array_keys($pangoAttributes)));
     }
