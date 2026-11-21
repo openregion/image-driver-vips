@@ -25,7 +25,7 @@ composer require openregion/image-driver-vips
 ## Getting Started
 
 The public [API](https://image.intervention.io) of Intervention Image can be
-used unchanged. The only [configuration](https://image.intervention.io/v4/basics/configuration-drivers) that needs to be done is to ensure that
+used unchanged. The only [configuration](https://image.intervention.io/v4/getting-started/configuration-drivers) that needs to be done is to ensure that
 `Intervention\Image\Drivers\Vips\Driver` by this library is used by `Intervention\Image\ImageManager`.
 
 ## Code Examples
